@@ -86,11 +86,72 @@ it('7 8 9 - 8 = -> 781', () => {
   expect(app.find('.calc-display').text()).toEqual('781');
 });
 
+it('7 * 8 = -> 56', () => {
+  const app = mount(<CalcApp />);
+  const rows = app.find('.calc-row');
+  const row1 = rows.at(1);
+  const row4 = rows.at(4);
+  const btn7 = row1.find(CalcButton).at(0);
+  const btn8 = row1.find(CalcButton).at(1);
+  const btnMul = row1.find(CalcButton).at(3);
+  const btnEqual = row4.find(CalcButton).at(2);
+
+  btn7.simulate('click');
+  btnMul.simulate('click');
+  btn8.simulate('click');
+
+  btnEqual.simulate('click');
+
+  expect(app.find('.calc-display').text()).toEqual('56');
+});
+
+it('3 + 5 = -> 8', () => {
+  const app = mount(<CalcApp />);
+  const rows = app.find('.calc-row');
+  const row2 = rows.at(2);
+  const row3 = rows.at(3);
+  const row4 = rows.at(4);
+  const btn3 = row3.find(CalcButton).at(2);
+  const btn5 = row2.find(CalcButton).at(1);
+  const btnAdd = row3.find(CalcButton).at(3);
+  const btnEqual = row4.find(CalcButton).at(2);
+
+  btn3.simulate('click');
+  btnAdd.simulate('click');
+  btn5.simulate('click');
+
+  btnEqual.simulate('click');
+
+  expect(app.find('.calc-display').text()).toEqual('8');
+});
+
+
+it('16 / 4 = -> 4', () => {
+  const app = mount(<CalcApp />);
+  const rows = app.find('.calc-row');
+  const row0 = rows.at(0);
+  const row2 = rows.at(2);
+  const row3 = rows.at(3);
+  const row4 = rows.at(4);
+  const btn1 = row3.find(CalcButton).at(0);
+  const btn4 = row2.find(CalcButton).at(0);
+  const btn6 = row2.find(CalcButton).at(2);
+  const btnDiv = row0.find(CalcButton).at(3);
+  const btnEqual = row4.find(CalcButton).at(2);
+
+  btn1.simulate('click');
+  btn6.simulate('click');
+  btnDiv.simulate('click');
+  btn4.simulate('click');
+  btnEqual.simulate('click');
+
+  expect(app.find('.calc-display').text()).toEqual('4');
+});
 
 it('AC should clear state', () => {
   const app = mount(<CalcApp />);
 
-  const initialState = app.state();
+  const initialState = Object.assign({}, app.state());
 
   const rows = app.find('.calc-row');
   const row0 = rows.at(0);
